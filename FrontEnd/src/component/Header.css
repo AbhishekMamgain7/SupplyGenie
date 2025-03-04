@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  background-color: rgba(0, 0, 0, 0.384);
+  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 10px 20px;
+}
+
+.header-title {
+  margin: 1px;
+  font-size: 30px;
+  font-family: inherit;
+}
+
+.header-nav {
+  flex-grow: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-menu {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+  padding: 0;
+  padding-right: 20px;
+}
+
+.header-menu-item:last-child {
+  margin-right: 10px;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+
+.header-search-icon {
+  color: #fff;
+  margin-left: 5px;
+}
