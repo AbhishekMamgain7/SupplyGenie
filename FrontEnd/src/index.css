@@ -1,16 +1,3 @@
-[data-color-mode*='dark'] .login-page-1, .login-page-1 {
-  --login-bg: #2c3338;
-  --login-color: #fff;
-  --login-bg-from: #FC466B;
-  --login-bg-to: #3F5EFB;
-}
-
-[data-color-mode*='light'] .login-page-1 {
-  --login-bg: #edeff3;
-  --login-color: #3b4148;
-  --login-bg-from: #FC466B;
-  --login-bg-to: #3F5EFB;
-}
 *{
   margin: 0;
   padding: 0;
