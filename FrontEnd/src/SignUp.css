@@ -1,4 +1,4 @@
-/* Reset and Full-Screen Background */
+
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@
     overflow: hidden;
   }
   
-  .login-page-1 {
+  .login-container {
     background: url('/preview.webp');
     background-size: cover;
     background-position: center;
@@ -26,7 +26,7 @@
     align-items: center;
   }
   
-  .login-page-1-wrapper {
+  .login-overlay {
     max-width: 30rem;
     width: 100%;
     max-height: 30rem;
@@ -121,8 +121,8 @@
   }
   
   .login-page-1-drops div:nth-child(1) { height: 150px; width: 150px; top: -50px; left: -50px; animation-duration: 10s; }
-  .login-page-1-drops div:nth-child(2) { height: 150px; width: 150px; bottom: -40px; right: 400px; animation-duration: 5s; }
-  .login-page-1-drops div:nth-child(3) { height: 150px; width: 150px; bottom: -30px; right: -80px; animation-duration: 7s; }
+  .login-page-1-drops div:nth-child(2) { height: 150px; width: 150px; bottom: -110px; left: -80px; animation-duration: 5s; }
+  .login-page-1-drops div:nth-child(3) { height: 150px; width: 150px; bottom: -110px; right: -90px; animation-duration: 7s; }
   .login-page-1-drops div:nth-child(4) { height: 120px; width: 120px; top: -50px; right: -50px; animation-duration: 8s; }
   .login-page-1-drops div:nth-child(5) { height: 80px; width: 80px; top: -20px; left: 300px; animation-duration: 6.5s; }
   

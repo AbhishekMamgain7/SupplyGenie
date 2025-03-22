@@ -3,13 +3,17 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "./firebaseConfig";
+import "./SignUp.jsx";
 import "./Login.css";
 
 const Login = () => {
   const auth = getAuth(app);
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({ email: "", password: "",selectedOption: "" });
+  const [formData, setFormData] = useState({ 
+    email: "",
+    password: "",
+    selectedOption: "" });
   const [selectedOption, setSelectedOption] = useState("Select");
   const [isOpen, setIsOpen] = useState(false);
 

@@ -6,7 +6,7 @@ import { app, database } from "./firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import "./SignUp.css";
 
-const SignUp=()=> {
+const SignUp = () => {
   const auth = getAuth(app);
   const collectionRef = collection(database, 'users');
 
@@ -15,7 +15,6 @@ const SignUp=()=> {
 
   const [formData, setFormData] = useState({
     fullName: "",
-    age: "",
     phoneNumber: "",
     email: "",
     password: "",
@@ -37,6 +36,7 @@ const SignUp=()=> {
       hasUpperCase &&
       hasLowerCase &&
       hasDigit &&
+      hasSpecialChar && 
       specialCharCount === 1
     );
   };
@@ -66,7 +66,6 @@ const SignUp=()=> {
         email: formData.email, 
         password: formData.password,
         fullName : formData.fullName,
-        age : formData.age,
         phoneNumber : formData.phoneNumber
       })
       .then(() => {
@@ -87,7 +86,6 @@ const SignUp=()=> {
       setIsSubmitting(false);
       setFormData({
         fullName: "",
-        age: "",
         phoneNumber: "",
         email: "",
         password: "",
@@ -97,17 +95,10 @@ const SignUp=()=> {
 
 
   return (
-    <div className="login-container">
-      <div className="login-overlay"></div>
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="login-box"
-      >
-        <h2 className="login-title">Create an Account</h2>
-        <p className="login-subtitle">Join us and start earning rewards!</p>
-
+    <div className="login-page-1">
+      <div className="login-page-1-wrapper">
+      <article>
+        <header>SignUp</header>
         <form onSubmit={handleSignup}>
           <motion.input
             name="fullName"
@@ -117,16 +108,7 @@ const SignUp=()=> {
             value={formData.fullName}
             onChange={handleChange}
             required
-            className="login-input" />
-          <motion.input
-            name="age"
-            whileFocus={{ scale: 1.05 }}
-            type="number"
-            placeholder="Age"
-            value={formData.age}
-            onChange={handleChange}
-            required
-            className="login-input" />
+            />
           <motion.input
             name="phoneNumber"
             whileFocus={{ scale: 1.05 }}
@@ -135,7 +117,7 @@ const SignUp=()=> {
             value={formData.phoneNumber}
             onChange={handleChange}
             required
-            className="login-input" />
+            />
           <motion.input
             name="email"
             whileFocus={{ scale: 1.05 }}
@@ -144,7 +126,7 @@ const SignUp=()=> {
             value={formData.email}
             onChange={handleChange}
             required
-            className="login-input" />
+            />
           <motion.input
             name="password"
             whileFocus={{ scale: 1.05 }}
@@ -153,25 +135,32 @@ const SignUp=()=> {
             value={formData.password}
             onChange={handleChange}
             required
-            className="login-input" />
+            />
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="login-button"
+            className="Login-btn"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Signing up..." : "Sign Up"}
           </motion.button>
         </form>
-
         <p className="login-footer">
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/Login">Login</Link>
         </p>
-      </motion.div>
+      </article>
+      <div className="login-page-1-drops">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default SignUp;
