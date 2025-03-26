@@ -1,28 +1,23 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import Link
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import './Header.css'; 
-import "bootstrap/dist/css/bootstrap.min.css"
+import './Header.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const Header = () => {
   const navigate = useNavigate();
-  const handleLoginClick = ()=>{ 
-    navigate('/Login');
-  };
+
   return (
     <header className="header">
-      <h1 className="header-title">My Website</h1>
+      <div className="header-title">SupplyGenie</div>
       <nav className="header-nav">
         <ul className="header-menu">
           <li className="header-menu-item">
-            <a onClick={handleLoginClick} className="header-link">Login</a>{}
+            <Link to="/Login" className="header-link">Login</Link>
           </li>
           <li className="header-menu-item">
-            <a href="#services" className="header-link">Services</a>
-          </li>
-          <li className="header-menu-item">
-            <a href="#services" className="header-link">Privacy
-            </a>
+            <Link to="/Privacy" className="header-link">Policies</Link>
           </li>
           <li className="header-menu-item">
             <div className="header-search">

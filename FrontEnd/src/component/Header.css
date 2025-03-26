@@ -4,14 +4,14 @@
   align-items: end;
   background-color: rgba(0, 0, 0, 0.384);
   color: white;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family:'Segoe UI', Tahoma, sans-serif;
   padding: 10px 20px;
 }
 
 .header-title {
-  margin: 1px;
-  font-size: 30px;
-  font-family: inherit;
+  display:flex;
+  font-family:'Courier New', Courier, monospace;
+  margin-bottom: 0.7rem;
 }
 
 .header-nav {
