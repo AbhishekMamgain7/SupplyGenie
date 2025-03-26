@@ -13,8 +13,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ 
     email: "",
     password: "",
-    selectedOption: "" });
-  const [selectedOption, setSelectedOption] = useState("Select");
+    selectedOption: "Select" });
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (e) => {
@@ -25,10 +24,9 @@ const Login = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    const { email, password } = formData;
+    const { email, password, selectedOption } = formData;
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       alert("Invalid email format.");
-      setFormData({ email: "", password: "" });
       setIsSubmitting(false);
       return;
     }
@@ -39,17 +37,17 @@ const Login = () => {
     }
     try{
       await signInWithEmailAndPassword(auth,email,password);
-      alert("Logged in successfully!");
-      setFormData({email:"", password: "",selectedOption:""});
-      if(selectedOption === "Customer"){
-        navigate("/Customer-option");
+      switch (selectedOption) {
+        case "Customer":
+          navigate("/Customer-option");
+          break;
+        case "Manager":
+          navigate("/Manager-option");
+          break;
+        default:
+          break;
       }
-      else if(selectedOption === "Manager"){
-        navigate("/Manager-option");
-      }
-      else if(selectedOption === "Admin"){
-        navigate("/Admin-option");
-      }
+      setFormData({email:"", password: "",selectedOption:"Select"});
     }
     catch(error){
       if (error.code === "auth/invalid-credential") {
@@ -60,12 +58,12 @@ const Login = () => {
     }
   }
     finally{
-      setIsSubmitting(flase);
+      setIsSubmitting(false);
     }
   };
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
+    setFormData({ ...formData,selectedOption: option});
     setIsOpen(false);
   };
   return (
@@ -94,8 +92,12 @@ const Login = () => {
             />
             
             <section className="dropdown-section">
-              <button className="dropdown-btn" type="button" onClick={() => setIsOpen(!isOpen)}>
-                {selectedOption}
+              <button 
+              className="dropdown-btn" 
+              type="button" 
+              onClick={() => setIsOpen(!isOpen)}
+              >
+              {formData.selectedOption}
               </button>
               <ul className={`dropdown-menu ${isOpen ? "show" : ""}`} onMouseLeave={()=> setIsOpen(false)}>
               <li className="dropdown-item" onClick={() => handleSelect("Customer")}>
@@ -103,9 +105,6 @@ const Login = () => {
               </li>
               <li className="dropdown-item" onClick={() => handleSelect("Manager")}>
                 Manager
-              </li>
-              <li className="dropdown-item" onClick={() => handleSelect("Admin")}>
-                Admin
               </li>
             </ul>
             </section>

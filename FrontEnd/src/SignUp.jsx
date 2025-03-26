@@ -61,7 +61,6 @@ const SignUp = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      alert("Signup complete!");
       addDoc(collectionRef, {
         email: formData.email, 
         password: formData.password,
