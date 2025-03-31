@@ -4,7 +4,7 @@
   align-items: end;
   background-color: rgba(0, 0, 0, 0.384);
   color: white;
-  font-family:'Segoe UI', Tahoma, sans-serif;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   padding: 10px 20px;
 }
 
@@ -12,6 +12,7 @@
   display:flex;
   font-family:'Courier New', Courier, monospace;
   margin-bottom: 0.7rem;
+  padding-left: 20px;
 }
 
 .header-nav {
@@ -26,11 +27,11 @@
   justify-content: flex-end;
   gap: 40px;
   padding: 0;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 
 .header-menu-item:last-child {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .header-link {
@@ -40,9 +41,4 @@
 
 .header-link:hover {
   text-decoration: underline;
-}
-
-.header-search-icon {
-  color: #fff;
-  margin-left: 5px;
 }
