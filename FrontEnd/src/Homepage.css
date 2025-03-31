@@ -13,7 +13,6 @@ html, body{
   flex-direction: column; 
   justify-content: center;
   align-items: center;
-  padding: 1rem;
 }
 .header {
   position: absolute;
@@ -24,7 +23,7 @@ html, body{
   font-weight: bold;
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   padding: 1rem 0;
 }
 

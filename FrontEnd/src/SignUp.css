@@ -11,7 +11,7 @@
     overflow: hidden;
   }
   
-  .login-container {
+  .signup-container {
     background: url('/preview.webp');
     background-size: cover;
     background-position: center;
@@ -26,7 +26,8 @@
     align-items: center;
   }
   
-  .login-overlay {
+  .signup-overlay {
+    margin-top:2.5rem;
     max-width: 30rem;
     width: 100%;
     max-height: 30rem;
@@ -34,9 +35,9 @@
     position: relative;
   }
   
-  .login-page-1-wrapper > article {
-    gap: 1.87rem;
-    padding: 3rem;
+  .signup-overlay > article {
+    gap: 1.2rem;
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -48,9 +49,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 1.375rem 1.375rem 2.175rem -0.275rem rgba(0, 0, 0, 0.2);
   }
-  
-  /* Title and Subtitle */
-  .login-page-1 header {
+  .signup-container header {
     display: flex;
     justify-content: center;
     font-weight: 700;
@@ -59,9 +58,7 @@
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
-  
-  /* Input Fields */
-  .login-page-1 input {
+  .signup-container input {
     background: transparent;
     margin-bottom: 1rem;
     padding: 0.8rem;
@@ -79,17 +76,16 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
   
-  .login-page-1 input::placeholder {
+  .signup-container input::placeholder {
     color: rgba(255, 255, 255, 0.61);
   }
   
-  .login-page-1 input:focus {
+  .signup-input:focus {
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
   }
-  
-  /* Signup Button */
-  .login-page-1 section button {
+
+  .signup-overlay section button {
     cursor: pointer;
     margin-top: 5px;
     font-size: 1rem;
@@ -103,12 +99,11 @@
     width: 100%;
   }
   
-  .login-page-1 section button:hover {
+  .signup-overlay section button:hover {
     background: rgba(255, 255, 255, 0.4);
   }
-  
-  /* Floating Glass Elements */
-  .login-page-1-drops > div {
+
+  .signup-page-1-drops > div {
     animation: float 5s infinite ease-in-out;
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
@@ -119,32 +114,39 @@
     position: absolute;
     transition: all 0.2s ease;
   }
-  
-  .login-page-1-drops div:nth-child(1) { height: 150px; width: 150px; top: -50px; left: -50px; animation-duration: 10s; }
-  .login-page-1-drops div:nth-child(2) { height: 150px; width: 150px; bottom: -110px; left: -80px; animation-duration: 5s; }
-  .login-page-1-drops div:nth-child(3) { height: 150px; width: 150px; bottom: -110px; right: -90px; animation-duration: 7s; }
-  .login-page-1-drops div:nth-child(4) { height: 120px; width: 120px; top: -50px; right: -50px; animation-duration: 8s; }
-  .login-page-1-drops div:nth-child(5) { height: 80px; width: 80px; top: -20px; left: 300px; animation-duration: 6.5s; }
+  .signup-btn{
+    padding: 0.5rem;
+    width:30%;
+    background-color:  rgba(255,255,255,0.2);
+    color: rgb(255, 255, 255);
+    border: 0;
+    border-radius: 5000px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .signup-page-1-drops div:nth-child(1) { height: 150px; width: 150px; top: -50px; left: -50px; animation-duration: 10s; }
+  .signup-page-1-drops div:nth-child(2) { height: 150px; width: 150px; bottom: -90px; left: -80px; animation-duration: 5s; }
+  .signup-page-1-drops div:nth-child(3) { height: 150px; width: 150px; bottom: -100px; right: -80px; animation-duration: 7s; }
+  .signup-page-1-drops div:nth-child(4) { height: 120px; width: 120px; top: -50px; right: -50px; animation-duration: 8s; }
+  .signup-page-1-drops div:nth-child(5) { height: 80px; width: 80px; top: -20px; left: 300px; animation-duration: 6.5s; }
   
   @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
   }
-  
-  /* Footer */
-  .login-footer {
+  .signup-footer {
     font-size: 1rem;
     color: #fff;
     text-align: center;
   }
   
-  .login-footer a {
+  .signup-footer a {
     color: #ffd700;
     text-decoration: none;
   }
   
-  .login-footer a:hover {
+  .signup-footer a:hover {
     text-decoration: underline;
   }
   

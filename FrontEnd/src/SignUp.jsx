@@ -94,8 +94,8 @@ const SignUp = () => {
 
 
   return (
-    <div className="login-page-1">
-      <div className="login-page-1-wrapper">
+    <div className="signup-container">
+      <div className="signup-overlay">
       <article>
         <header>SignUp</header>
         <form onSubmit={handleSignup}>
@@ -140,17 +140,17 @@ const SignUp = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="Login-btn"
+            className="signup-btn"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Signing up..." : "Sign Up"}
           </motion.button>
         </form>
-        <p className="login-footer">
-          Already have an account? <Link to="/Login">Login</Link>
+        <p className="signup-footer">
+          Already have an account? <Link to="/Login">LOGIN</Link>
         </p>
       </article>
-      <div className="login-page-1-drops">
+      <div className="signup-page-1-drops">
           <div></div>
           <div></div>
           <div></div>

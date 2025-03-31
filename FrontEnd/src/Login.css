@@ -25,7 +25,7 @@ html, body{
 .login-page-1-wrapper {
   max-width: 30rem;
   width: 100%;
-  max-height: 30rem;
+  max-height: 25rem;
   height: 100%;
   position: relative;
 }
@@ -115,30 +115,14 @@ html, body{
 
 
 .login-page-1-drops div:nth-child(1) { height: 150px; width: 150px; top: -50px; left: -50px; animation-duration: 10s;}
-.login-page-1-drops div:nth-child(2) { height: 150px; width: 150px; bottom: -40px; right: 400px; animation-duration: 5s;}
-.login-page-1-drops div:nth-child(3) { height: 150px; width: 150px; bottom: -30px; right: -80px; animation-duration: 7s;}
+.login-page-1-drops div:nth-child(2) { height: 150px; width: 150px; bottom: -65px; right: 400px; animation-duration: 5s;}
+.login-page-1-drops div:nth-child(3) { height: 150px; width: 150px; bottom: -60px; right: -100px; animation-duration: 7s;}
 .login-page-1-drops div:nth-child(4) { height: 120px; width: 120px; top: -50px; right: -50px; animation-duration: 8s;}
 .login-page-1-drops div:nth-child(5) { height: 80px; width: 80px; top: -20px; left: 300px; animation-duration: 6.5s;}
 @keyframes float{
   0% {transform: translateY(0px);}
   50% {transform: translateY(-15px);}
   100%{transform: translateY(0px);}
-}
-
-.dropdown-section {
-  position: relative;
-}
-
-.dropdown-btn {
-  padding: 1rem;
-  width:100%;
-  background-color:  rgba(255,255,255,0.2);
-  color: rgb(255, 255, 255);
-  border: 0;
-  font-size: 16px;
-  border-radius: 5000px;
-  cursor: pointer;
-  margin-bottom:1rem;
 }
 .Login-btn{
   padding: 0.5rem;
@@ -150,32 +134,10 @@ html, body{
   cursor: pointer;
   font-size: 16px;
 }
-.dropdown-btn:hover {
-  background-color:  rgba(255,255,255,0.3);
-}
-
-.dropdown-menu {
-  position: relative;
-  top: 100%;
-  background-color:  white;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-}
-
-.dropdown-item {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.dropdown-item:hover {
-  background-color: #f1f1f1;
-}
-
 .login-footer {
   font-size: 1rem;
   color: #fff;
+  text-align: center;
 }
 
 .login-footer a {

@@ -12,9 +12,8 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ 
     email: "",
-    password: "",
-    selectedOption: "Select" });
-  const [isOpen, setIsOpen] = useState(false);
+    password: ""
+   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,29 +23,15 @@ const Login = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    const { email, password, selectedOption } = formData;
+    const { email, password } = formData;
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       alert("Invalid email format.");
       setIsSubmitting(false);
       return;
     }
-
-    if (selectedOption === "Select"){
-      setIsSubmitting(false);
-      return;
-    }
     try{
       await signInWithEmailAndPassword(auth,email,password);
-      switch (selectedOption) {
-        case "Customer":
-          navigate("/Customer-option");
-          break;
-        case "Manager":
-          navigate("/Manager-option");
-          break;
-        default:
-          break;
-      }
+      navigate("/manager");
       setFormData({email:"", password: "",selectedOption:"Select"});
     }
     catch(error){
@@ -62,10 +47,6 @@ const Login = () => {
     }
   };
 
-  const handleSelect = (option) => {
-    setFormData({ ...formData,selectedOption: option});
-    setIsOpen(false);
-  };
   return (
     <div className="login-page-1">
       <div className="login-page-1-wrapper">
@@ -91,23 +72,6 @@ const Login = () => {
               required
             />
             
-            <section className="dropdown-section">
-              <button 
-              className="dropdown-btn" 
-              type="button" 
-              onClick={() => setIsOpen(!isOpen)}
-              >
-              {formData.selectedOption}
-              </button>
-              <ul className={`dropdown-menu ${isOpen ? "show" : ""}`} onMouseLeave={()=> setIsOpen(false)}>
-              <li className="dropdown-item" onClick={() => handleSelect("Customer")}>
-                Customer
-              </li>
-              <li className="dropdown-item" onClick={() => handleSelect("Manager")}>
-                Manager
-              </li>
-            </ul>
-            </section>
             <motion.button
               type="submit"
               disabled={isSubmitting}
