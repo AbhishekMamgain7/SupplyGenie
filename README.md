@@ -119,9 +119,6 @@ npm start
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a Pull Request.
 
-## 📜 License
-This project is licensed under the MIT License.
-
 ## 📬 Contact
 For questions or contributions, contact:
 - **Mahak Sharma** - [GitHub](https://github.com/Mahak-Sharma) | [Email](mailto:mahaksharma0227@gmail.com)
