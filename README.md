@@ -9,7 +9,6 @@ An AI-powered logistics optimization system that enhances supply chain efficienc
 - ✅ **Real-time Stock Monitoring & Alerts** - Tracks inventory and triggers alerts.
 - ✅ **AI-Powered Demand Forecasting** - Predicts demand using ML models (XGBoost, LSTMs, Transformers).
 - ✅ **Smart Route Optimization** - Suggests efficient delivery routes using Dijkstra's Algorithm & Graph Neural Networks.
-- ✅ **Predictive Maintenance for Vehicles** - Prevents breakdowns using IoT-based monitoring & AI analysis.
 - ✅ **Secure Cloud-Based Deployment** - Hosted on Google Cloud, AWS, or Firebase.
 - ✅ **Role-Based Access Control (RBAC)** - Ensures security with OAuth, JWT, and API rate limiting.
 
