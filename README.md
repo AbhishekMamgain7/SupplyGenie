@@ -124,7 +124,10 @@ This project is licensed under the MIT License.
 
 ## 📬 Contact
 For questions or contributions, contact:
-- **Abhishek Mamgain** - [GitHub](https://github.com/AbhishekMamgain) | [Email](mailto:abhishek@example.com)
+- **Mahak Sharma** - [GitHub](https://github.com/Mahak-Sharma) | [Email](mailto:mahaksharma0227@gmail.com)
+- **Aakansha Rawat** - [GitHub](https://github.com/aakansharawat) | [Email](mailto:aakansharawat1234@gmail.com)
+- **Aaradhya Chachra** - [GitHub](https://github.com/Aaradhya2005) | [Email](mailto:aaradhyachachra779@gmail.com)
+- **Abhishek Mamgain** - [GitHub](https://github.com/AbhishekMamgain7) | [Email](mailto:abhishekmamgain799@gmail.com)
 
 🚀 Let's optimize logistics with AI! 🚀
 
