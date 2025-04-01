@@ -3,7 +3,7 @@
 # 🚀 AI-Driven Logistics Optimization
 
 ## 📌 Project Overview
-An AI-powered logistics optimization system that enhances supply chain efficiency through real-time stock monitoring, AI-driven demand forecasting, smart route optimization, and predictive vehicle maintenance. The system is cloud-based, scalable, and integrates ML models for improved decision-making.
+An AI-powered logistics optimization system that enhances supply chain efficiency through real-time stock monitoring, AI-driven demand forecasting and smart route optimization. The system is cloud-based, scalable, and integrates ML models for improved decision-making.
 
 ## 🎯 Key Features
 - ✅ **Real-time Stock Monitoring & Alerts** - Tracks inventory and triggers alerts.
