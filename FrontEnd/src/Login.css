@@ -7,21 +7,21 @@ html, body{
   min-height: 100%;
   overflow: hidden;
 }
+
 .login-page-1 {
-  background: url('/preview.webp');
+  background: url('/cartons.jpg');
   background-size:cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-blend-mode:darken;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-blend-mode:lighten;
+  background-color: rgba(255, 255, 255, 0.036);
   height: 100vh;
   width:100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .login-page-1-wrapper {
   max-width: 30rem;
   width: 100%;

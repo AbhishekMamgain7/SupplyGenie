@@ -23,7 +23,7 @@ const Manager = () =>{
         whileTap = {{ scale: 0.95 }}
         className="stocks"
         >
-            <p className="options"><Link to ="/Stocks/Stocks">Stocks</Link></p>
+        <p className="options"><Link to ="/Stocks/Stocks">Stocks</Link></p>
         </motion.div>
         </div>
     );

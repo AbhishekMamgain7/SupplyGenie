@@ -5,32 +5,26 @@ import { getAuth, createUserWithEmailAndPassword, } from "firebase/auth";
 import { app, database } from "./firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import "./SignUp.css";
-
 const SignUp = () => {
   const auth = getAuth(app);
   const collectionRef = collection(database, 'users');
-
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
     email: "",
     password: "",
   });
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasDigit = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*]/.test(password);
     const specialCharCount = (password.match(/[!@#$%^&*]/g) || []).length;
-
     return (
       password.length >= 6 &&
       hasUpperCase &&
@@ -40,27 +34,24 @@ const SignUp = () => {
       specialCharCount === 1
     );
   };
-
   const handleSignup = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
       alert("Invalid email format.");
       setFormData({ ...formData, email: "", password: "" });
       setIsSubmitting(false);
       return;
     }
-
     if (!validatePassword(formData.password)) {
       alert("Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and exactly one special character.");
       setFormData({ ...formData, password: "" });
       setIsSubmitting(false);
       return;
     }
-
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      alert("Signup complete");
       addDoc(collectionRef, {
         email: formData.email, 
         password: formData.password,
@@ -91,8 +82,6 @@ const SignUp = () => {
       });
     }
   };
-
-
   return (
     <div className="signup-container">
       <div className="signup-overlay">
@@ -135,7 +124,6 @@ const SignUp = () => {
             onChange={handleChange}
             required
             />
-
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
