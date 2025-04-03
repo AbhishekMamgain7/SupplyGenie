@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { app } from "/src/firebaseConfig";
-import { getAuth, getAdditionalUserInfo } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import "./Inventory.css";
 const Inventory = () => {
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,13 +26,30 @@ const Inventory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const user = auth.currentUser;
+    if (!user) {
+      alert("User not logged in. Please log in first.");
+      navigate("/Login");
+      return;
+    }
     try {
-      await getAdditionalUserInfo(auth, warehouseName, location);
-      navigate("/Inventory/invDashboard");
+      const warehouseRef = collection(db, "users", user.uid, "warehouses");
+      const q = query(
+        warehouseRef,
+        where("warehouseName", "==", formData.warehouseName.trim()),
+        where("location", "==", formData.location.trim())
+      );
+
+      const qSnapshot = await getDocs(q);
+      if (!qSnapshot.empty) {
+        navigate("/Inventory/Dashboard");
+        setFormData({ warehouseName: "", location: "" });
+      } else {
+        alert("Warehouse not found! Please check the details or register.");
+      }
       setFormData({ warehouseName: "", location: "" });
     } catch (error) {
       alert("Error: " + error.message);
-      setFormData({ warehouseName: "", location: "" });
     } finally {
       setIsSubmitting(false);
     }

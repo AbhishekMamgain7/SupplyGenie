@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { app, database } from "/src/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "./warehouse.css";
 const Warehouse = () => {
   const auth = getAuth(app);
-  const user = auth.currentUser;
   const navigate = useNavigate();
-  const collectionRef = collection(database, "warehouse");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     warehouseName: "",
@@ -25,6 +23,7 @@ const Warehouse = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const user = auth.currentUser;
     if (!user) {
       alert("User not logged in. Please log in first.");
       navigate("/Login");
@@ -32,7 +31,13 @@ const Warehouse = () => {
     }
     setIsSubmitting(true);
     try {
-      await addDoc(collectionRef, {
+      const userWarehouseRef = collection(
+        database,
+        "users",
+        user.uid,
+        "warehouses"
+      );
+      await addDoc(userWarehouseRef, {
         warehouseName: formData.warehouseName,
         size: formData.size,
         location: formData.location,
@@ -40,9 +45,10 @@ const Warehouse = () => {
         sections: formData.sections,
         entry: formData.entry,
         exit: formData.exit,
+        createdAt: new Date(),
       });
       console.log("Warehouse data added successfully!");
-      navigate("invDashboard");
+      navigate("/Dashboard");
     } catch (error) {
       console.error("Error adding document: ", error);
       alert("Error adding warehouse data. Please try again.");
@@ -139,7 +145,7 @@ const Warehouse = () => {
             </motion.button>
           </form>
           <p className="register">
-            Already registered? <Link to="/invDashboard">Details</Link>
+            Already registered? <Link to="/Dashboard">Details</Link>
           </p>
         </article>
       </div>
