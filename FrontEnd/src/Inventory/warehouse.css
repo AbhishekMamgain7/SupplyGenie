@@ -47,7 +47,7 @@ html, body{
   width: 50%;
 }
 
-.warehouse-overlay header {
+.wName {
   font-size: 1.8rem;
   font-weight: bold;
   color: white;

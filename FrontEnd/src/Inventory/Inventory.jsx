@@ -42,8 +42,16 @@ const Inventory = () => {
 
       const qSnapshot = await getDocs(q);
       if (!qSnapshot.empty) {
+        const selectedWarehouse = {
+          warehouseName: formData.warehouseName.trim(),
+          location: formData.location.trim(),
+        };
+        localStorage.setItem(
+          "selectedWarehouse",
+          JSON.stringify(selectedWarehouse)
+        );
+
         navigate("/Inventory/Dashboard");
-        setFormData({ warehouseName: "", location: "" });
       } else {
         alert("Warehouse not found! Please check the details or register.");
       }
@@ -52,13 +60,27 @@ const Inventory = () => {
       alert("Error: " + error.message);
     } finally {
       setIsSubmitting(false);
+      setFormData({ warehouseName: "", location: "" });
     }
   };
   return (
     <div className="inventory-container">
+      <header className="header">
+        <div className="header-title">SupplyGenie</div>
+        <nav className="header-nav">
+          <ul className="header-menu">
+            <li className="header-menu-item">
+              <Link to="/Policies" className="header-link">
+                Policies
+              </Link>
+            </li>
+            <li className="header-menu-item"></li>
+          </ul>
+        </nav>
+      </header>
       <div className="inventory-overlay">
         <article>
-          <header>Enter Details</header>
+          <p className="details">Enter Details</p>
           <form onSubmit={handleSubmit}>
             <motion.input
               name="warehouseName"

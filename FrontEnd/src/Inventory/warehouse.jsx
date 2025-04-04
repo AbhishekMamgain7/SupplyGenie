@@ -67,9 +67,22 @@ const Warehouse = () => {
   };
   return (
     <div className="warehouse-container">
+      <header className="header">
+        <div className="header-title">SupplyGenie</div>
+        <nav className="header-nav">
+          <ul className="header-menu">
+            <li className="header-menu-item">
+              <Link to="/Policies" className="header-link">
+                Policies
+              </Link>
+            </li>
+            <li className="header-menu-item"></li>
+          </ul>
+        </nav>
+      </header>
       <div className="warehouse-overlay">
         <article>
-          <header>Warehouse</header>
+          <p className="wName">Warehouse</p>
           <form onSubmit={handleSubmit}>
             <motion.input
               name="warehouseName"
@@ -145,7 +158,7 @@ const Warehouse = () => {
             </motion.button>
           </form>
           <p className="register">
-            Already registered? <Link to="/Dashboard">Details</Link>
+            Already registered? <Link to="/Inventory/Inventory">Details</Link>
           </p>
         </article>
       </div>
