@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword, } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app, database } from "./firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
+import Header from "./component/header";
 import "./SignUp.css";
 const SignUp = () => {
   const auth = getAuth(app);
-  const collectionRef = collection(database, 'users');
+  const collectionRef = collection(database, "users");
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const SignUp = () => {
       hasUpperCase &&
       hasLowerCase &&
       hasDigit &&
-      hasSpecialChar && 
+      hasSpecialChar &&
       specialCharCount === 1
     );
   };
@@ -44,26 +45,32 @@ const SignUp = () => {
       return;
     }
     if (!validatePassword(formData.password)) {
-      alert("Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and exactly one special character.");
+      alert(
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and exactly one special character."
+      );
       setFormData({ ...formData, password: "" });
       setIsSubmitting(false);
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
       alert("Signup complete");
       addDoc(collectionRef, {
-        email: formData.email, 
+        email: formData.email,
         password: formData.password,
-        fullName : formData.fullName,
-        phoneNumber : formData.phoneNumber
+        fullName: formData.fullName,
+        phoneNumber: formData.phoneNumber,
       })
-      .then(() => {
-        console.log("Data Added");
-      })
-      .catch((error) => {
-        console.log(error.message)
-      })
+        .then(() => {
+          console.log("Data Added");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
       navigate("/Login");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -84,61 +91,62 @@ const SignUp = () => {
   };
   return (
     <div className="signup-container">
+      <Header />
       <div className="signup-overlay">
-      <article>
-        <header>SignUp</header>
-        <form onSubmit={handleSignup}>
-          <motion.input
-            name="fullName"
-            whileFocus={{ scale: 1.05 }}
-            type="text"
-            placeholder="Full Name"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
+        <article>
+          <p className="sign">SignUp</p>
+          <form onSubmit={handleSignup}>
+            <motion.input
+              name="fullName"
+              whileFocus={{ scale: 1.05 }}
+              type="text"
+              placeholder="Full Name"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
             />
-          <motion.input
-            name="phoneNumber"
-            whileFocus={{ scale: 1.05 }}
-            type="text"
-            placeholder="Phone Number"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            required
+            <motion.input
+              name="phoneNumber"
+              whileFocus={{ scale: 1.05 }}
+              type="text"
+              placeholder="Phone Number"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              required
             />
-          <motion.input
-            name="email"
-            whileFocus={{ scale: 1.05 }}
-            type="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            <motion.input
+              name="email"
+              whileFocus={{ scale: 1.05 }}
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
             />
-          <motion.input
-            name="password"
-            whileFocus={{ scale: 1.05 }}
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+            <motion.input
+              name="password"
+              whileFocus={{ scale: 1.05 }}
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
             />
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            type="submit"
-            className="signup-btn"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Signing up..." : "Sign Up"}
-          </motion.button>
-        </form>
-        <p className="signup-footer">
-          Already have an account? <Link to="/Login">LOGIN</Link>
-        </p>
-      </article>
-      <div className="signup-page-1-drops">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="signup-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Signing up..." : "Sign Up"}
+            </motion.button>
+          </form>
+          <p className="signup-footer">
+            Already have an account? <Link to="/Login">LOGIN</Link>
+          </p>
+        </article>
+        <div className="signup-page-1-drops">
           <div></div>
           <div></div>
           <div></div>

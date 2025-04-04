@@ -7,6 +7,51 @@ html, body{
   min-height: 100%;
   overflow: hidden;
 }
+.header-login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.38);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Cambria", Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.header-login-title {
+  font-family: "Courier New", Courier, monospace;
+  padding-left: 20px;
+}
+
+.header-login-nav {
+  display: flex;
+}
+
+.header-login-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+}
+
+.header-login-menu-item {
+  margin-right: 20px;
+}
+
+.header-login-link {
+  color: white;
+  text-decoration: none;
+}
+
+.header-login-link:hover {
+  text-decoration: underline;
+}
 
 .login-page-1 {
   background: url('/cartons.jpg');
@@ -36,7 +81,7 @@ html, body{
   flex-direction: column;
   position: relative;
   z-index: 1;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.119);
   backdrop-filter: blur(10px);
   border-radius: 1.375rem;
   border-left: 1px solid rgba(255,255,255,0.2);
@@ -44,7 +89,7 @@ html, body{
   box-shadow: 1.375rem 1.375rem 2.175rem -0.275rem rgba(0,0,0,0.2);
 }
 
-.login-page-1 header {
+.Heading {
   display: flex;
   justify-content: center;
   font-weight: 700;

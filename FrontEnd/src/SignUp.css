@@ -49,7 +49,7 @@ html, body {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 1.375rem 1.375rem 2.175rem -0.275rem rgba(0, 0, 0, 0.2);
   }
-  .signup-container header {
+  .sign {
     display: flex;
     justify-content: center;
     font-weight: 700;
