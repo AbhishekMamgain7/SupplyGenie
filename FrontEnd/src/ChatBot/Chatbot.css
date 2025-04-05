@@ -37,8 +37,8 @@
     position: fixed;
     bottom: 80px;
     right: 20px;
-    width: 400px;
-    height: 600px;
+    width: 350px;
+    height: 450px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -80,7 +80,7 @@
     background: none;
     border: none;
     color: #fff;
-    font-size: 18px;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -99,6 +99,7 @@
     border-radius: 12px;
     max-width: 75%;
     word-wrap: break-word;
+    font-size: 14px;
 }
 
 .chatbot-message.user {
