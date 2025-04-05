@@ -9,10 +9,12 @@ import Inventory from "./Inventory/Inventory.jsx";
 import Warehouse from "./Inventory/warehouse.jsx";
 import Dashboard from "./Inventory/Dashboard.jsx";
 import Stocks from "./Stocks/Stocks.jsx";
+import Chatbot from "./ChatBot/Chatbot.jsx";
 
 const App = () => {
   return (
     <Router>
+      <Chatbot />      
       <Routes>
         {/* Set Homepage as Default Route */}
         <Route path="/" element={<Homepage />} />
