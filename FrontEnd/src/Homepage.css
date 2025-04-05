@@ -1,9 +1,10 @@
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  background: #000;
 }
-
 .background-container {
   background: url('/Background.png');
   background-size: cover;
