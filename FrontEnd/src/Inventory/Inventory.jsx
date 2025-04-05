@@ -105,7 +105,7 @@ const Inventory = () => {
               disabled={isSubmitting}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="enter"
+              className="enter-d"
             >
               {isSubmitting ? "Entering..." : "Enter"}
             </motion.button>

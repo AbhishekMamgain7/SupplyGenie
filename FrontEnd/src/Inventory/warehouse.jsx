@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { app, database } from "/src/firebaseConfig";
-import { collection, doc, addDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "./warehouse.css";
 const Warehouse = () => {
@@ -14,13 +14,33 @@ const Warehouse = () => {
     size: "",
     location: "",
     employee: "",
-    sections: "",
+    numSections: "",
     entry: "",
     exit: "",
   });
+  const [sections, setSections] = useState([]);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSectionCountChange = (e) => {
+    const count = parseInt(e.target.value);
+    setFormData({ ...formData, numSections: count });
+    const sectionArray = Array.from({ length: count }, () => ({
+      name: "",
+      largeBoxes: "",
+      mediumBoxes: "",
+      smallBoxes: "",
+    }));
+    setSections(sectionArray);
+  };
+
+  const handleSectionDetailChange = (index, key, value) => {
+    const updatedSections = [...sections];
+    updatedSections[index][key] = value;
+    setSections(updatedSections);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = auth.currentUser;
@@ -42,13 +62,13 @@ const Warehouse = () => {
         size: formData.size,
         location: formData.location,
         employee: formData.employee,
-        sections: formData.sections,
+        sections: sections,
         entry: formData.entry,
         exit: formData.exit,
         createdAt: new Date(),
       });
       console.log("Warehouse data added successfully!");
-      navigate("/Dashboard");
+      navigate("/Inventory/Inventory");
     } catch (error) {
       console.error("Error adding document: ", error);
       alert("Error adding warehouse data. Please try again.");
@@ -59,7 +79,7 @@ const Warehouse = () => {
         size: "",
         location: "",
         employee: "",
-        sections: "",
+        numSections: "",
         entry: "",
         exit: "",
       });
@@ -82,7 +102,7 @@ const Warehouse = () => {
       </header>
       <div className="warehouse-overlay">
         <article>
-          <p className="wName">Warehouse</p>
+          <p className="wName">REGISTER WAREHOUSE</p>
           <form onSubmit={handleSubmit}>
             <motion.input
               name="warehouseName"
@@ -120,15 +140,83 @@ const Warehouse = () => {
               onChange={handleChange}
               required
             />
-            <motion.input
-              name="sections"
-              whileFocus={{ scale: 1.05 }}
-              type="number"
-              placeholder="Number of Sections"
-              value={formData.sections}
-              onChange={handleChange}
+
+            {/* Section Dropdown */}
+            <select
+              name="numSections"
+              className="numSection"
+              value={formData.numSections}
+              onChange={handleSectionCountChange}
               required
-            />
+            >
+              <option value="">Enter number of sections </option>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+
+            {/* Section Inputs */}
+            {sections.map((section, index) => (
+              <div key={index}>
+                <motion.input
+                  type="text"
+                  className="select-section"
+                  placeholder={`Section ${index + 1} Name`}
+                  value={section.name}
+                  onChange={(e) =>
+                    handleSectionDetailChange(index, "name", e.target.value)
+                  }
+                  whileFocus={{ scale: 1.05 }}
+                  required
+                />
+                <div className="Box-size">
+                  <motion.input
+                    type="number"
+                    placeholder={`Max Boxes (Large)`}
+                    value={section.largeBoxes}
+                    onChange={(e) =>
+                      handleSectionDetailChange(
+                        index,
+                        "largeBoxes",
+                        e.target.value
+                      )
+                    }
+                    whileFocus={{ scale: 1.05 }}
+                    required
+                  />
+                  <motion.input
+                    type="number"
+                    placeholder={`Max Boxes (Medium)`}
+                    value={section.mediumBoxes}
+                    onChange={(e) =>
+                      handleSectionDetailChange(
+                        index,
+                        "mediumBoxes",
+                        e.target.value
+                      )
+                    }
+                    whileFocus={{ scale: 1.05 }}
+                    required
+                  />
+                  <motion.input
+                    type="number"
+                    placeholder={`Max Boxes (Small)`}
+                    value={section.smallBoxes}
+                    onChange={(e) =>
+                      handleSectionDetailChange(
+                        index,
+                        "smallBoxes",
+                        e.target.value
+                      )
+                    }
+                    whileFocus={{ scale: 1.05 }}
+                    required
+                  />
+                </div>
+              </div>
+            ))}
             <motion.input
               name="entry"
               whileFocus={{ scale: 1.05 }}
