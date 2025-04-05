@@ -50,6 +50,11 @@ const Login = () => {
         <div className="header-login-title">SupplyGenie</div>
         <nav className="header-login-nav">
           <ul className="header-login-menu">
+            <li className="header-menu-item">
+              <Link to="/" className="header-link">
+                Home
+              </Link>
+            </li>
             <li className="header-login-menu-item">
               <Link to="/SignUp" className="header-login-link">
                 SignUp
