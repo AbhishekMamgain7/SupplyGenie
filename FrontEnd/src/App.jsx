@@ -14,10 +14,18 @@ import Chatbot from "./ChatBot/Chatbot.jsx";
 const App = () => {
   return (
     <Router>
-      <Chatbot />      
       <Routes>
         {/* Set Homepage as Default Route */}
-        <Route path="/" element={<Homepage />} />
+        <Route
+          path="/"
+          element=
+          {
+            <>
+              <Homepage />
+              <Chatbot />
+            </>
+          }
+        />
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Manager" element={<Manager />} />
