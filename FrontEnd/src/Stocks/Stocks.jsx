@@ -1,4 +1,3 @@
-// Stocks.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
@@ -26,11 +25,11 @@ const Stocks = () => {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [uploadStatus, setUploadStatus] = useState(null);
-  const [predictionOutput, setPredictionOutput] = useState("");
+  const [predictionOutput, setPredictionOutput] = useState([]);
+  const [predicting, setPredicting] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    // Persist auth session
     setPersistence(auth, browserLocalPersistence)
       .then(() => {
         const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
@@ -42,7 +41,7 @@ const Stocks = () => {
             setUserId(null);
           }
         });
-        return unsubscribe;
+        return () => unsubscribe();
       })
       .catch((error) => {
         console.error("❌ Persistence error:", error);
@@ -51,8 +50,7 @@ const Stocks = () => {
 
   const sendTokenToBackend = async () => {
     if (user) {
-      const idToken = await user.getIdToken(true);
-      return idToken;
+      return await user.getIdToken(true);
     }
     return null;
   };
@@ -64,41 +62,58 @@ const Stocks = () => {
       return;
     }
 
+    setPredicting(true);
     setMessage("⏳ Running prediction...");
+
     try {
-      const runModelResponse = await fetch("http://localhost:5176/run-model", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
+      const runModelResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/run_model`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        }
+      );
+
+      if (!runModelResponse.ok) {
+        throw new Error("Prediction request failed");
+      }
 
       const runModelData = await runModelResponse.json();
-      if (
-        runModelResponse.ok &&
-        runModelData.message?.includes("Model executed")
-      ) {
-        const outputResponse = await fetch("http://localhost:5176/get-output");
-        if (!outputResponse.ok) throw new Error("Failed to fetch output.");
+
+      if (runModelData.message?.includes("Model executed successfully")) {
+        const outputResponse = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/get-output`
+        );
+
+        if (!outputResponse.ok) {
+          throw new Error("Failed to fetch prediction output");
+        }
 
         const outputData = await outputResponse.json();
-        setPredictionOutput(outputData.output || "⚠️ Output was empty.");
+
+        setPredictionOutput(
+          Array.isArray(outputData.output) ? outputData.output : []
+        );
         setMessage("✅ Prediction Complete!");
       } else {
-        setPredictionOutput("");
-        setMessage("❌ Prediction failed: " + (runModelData.message || ""));
+        setPredictionOutput([]);
+        setMessage("❌ Prediction failed.");
       }
     } catch (err) {
-      console.error(err);
-      setPredictionOutput("");
+      console.error("Prediction error:", err);
+      setPredictionOutput([]);
       setMessage("❌ Error fetching prediction.");
     }
+
+    setPredicting(false);
   };
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     setMessage("");
-    setPredictionOutput("");
+    setPredictionOutput([]);
     setUploadStatus(null);
   };
 
@@ -172,9 +187,9 @@ const Stocks = () => {
           <button
             className="predict-btn"
             onClick={handlePredict}
-            disabled={uploadStatus !== "success"}
+            disabled={uploadStatus !== "success" || predicting}
           >
-            Predict Output
+            {predicting ? "Predicting..." : "Predict Output"}
           </button>
 
           {message && (
@@ -187,8 +202,32 @@ const Stocks = () => {
             </p>
           )}
 
-          {predictionOutput && (
-            <pre className="prediction-result">{predictionOutput}</pre>
+          {Array.isArray(predictionOutput) && predictionOutput.length > 0 && (
+            <div className="prediction-table-container">
+              <h3 className="table-title">📊 Prediction Results</h3>
+              <table className="prediction-table">
+                <thead>
+                  <tr>
+                    <th>Warehouse</th>
+                    <th>Category</th>
+                    <th>Predicted Order Qty</th>
+                    <th>Refill Needed</th>
+                    <th>Predicted Refill Qty</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {predictionOutput.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row.Warehouse}</td>
+                      <td>{row.Category}</td>
+                      <td>{row["Predicted Order Qty"]}</td>
+                      <td>{row["Refill Needed (0/1)"]}</td>
+                      <td>{row["Predicted Refill Qty"]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </article>
       </div>

@@ -1,20 +1,22 @@
 from flask import Flask, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, auth, storage
-import subprocess
 import os
 from flask_cors import CORS
+from predict_model import predict  # Your ML logic
 
 app = Flask(__name__)
 CORS(app)
 
-# Initialize Firebase Admin
-cred = credentials.Certificate('firebase-key.json')  # Replace with your file
+# Firebase Init
+cred = credentials.Certificate('firebase-key.json')
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'supplygenie-11374.appspot.com'
 })
 
-# ------------------------ Verify Token ------------------------ #
+# Store the latest prediction output temporarily in memory
+latest_prediction_output = {}
+
 @app.route('/api/verify-token', methods=['POST'])
 def verify_token():
     token = request.headers.get("Authorization")
@@ -29,9 +31,11 @@ def verify_token():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 401
 
-# ------------------------ Run ML Model ------------------------ #
-@app.route('/run-model', methods=['POST'])
+
+@app.route('/run_model', methods=['POST'])
 def run_model():
+    global latest_prediction_output
+
     token = request.headers.get("Authorization")
     if not token:
         return jsonify({'message': 'Token missing'}), 401
@@ -44,46 +48,58 @@ def run_model():
         return jsonify({'message': 'Invalid token'}), 401
 
     try:
+        # Get latest CSV file for user from Firebase Storage
         bucket = storage.bucket()
         user_folder = f'orders/{uid}/'
         blobs = list(bucket.list_blobs(prefix=user_folder))
         if not blobs:
             return jsonify({'message': 'No files found for user'}), 404
 
-        # Get latest uploaded CSV file
+        # Find the most recently updated file
         latest_blob = max(blobs, key=lambda b: b.updated)
-        local_csv_path = os.path.join(os.getcwd(), 'downloaded.csv')
-        latest_blob.download_to_filename(local_csv_path)
+        local_filename = "downloaded.csv"
+        latest_blob.download_to_filename(local_filename)
 
-        # Run prediction script
-        result = subprocess.run(['python3', 'predict_model.py'], capture_output=True, text=True)
+        # Run prediction
+        result = predict(local_filename)
 
-        # Handle model errors
-        if result.returncode != 0:
-            return jsonify({
-                'message': '❌ Model execution failed',
-                'error': result.stderr
-            }), 500
+        if result["status"] == "success":
+            latest_prediction_output[uid] = result["output"]  # Store output per user
+            return jsonify({"message": "Model executed successfully"}), 200
+        else:
+            return jsonify({"message": "Prediction failed"}), 500
 
-        # Save the model output (stdout) into file
-        with open('predicted_output.txt', 'w') as f:
-            f.write(result.stdout)
+    except Exception as e:
+        return jsonify({'message': f'Prediction error: {str(e)}'}), 500
 
-        return jsonify({'message': '✅ Model executed successfully!'}), 200
 
+@app.route('/get-output', methods=['GET'])
+def get_output():
+    token = request.headers.get("Authorization")
+    if not token:
+        return jsonify({'message': 'Token missing'}), 401
+
+    token = token.replace("Bearer ", "")
+    try:
+        decoded_token = auth.verify_id_token(token)
+        uid = decoded_token['uid']
+    except Exception:
+        return jsonify({'message': 'Invalid token'}), 401
+
+    try:
+        output = latest_prediction_output.get(uid)
+        if output:
+            return jsonify({"output": output}), 200
+        else:
+            return jsonify({"message": "No prediction output found"}), 404
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
-# ------------------------ Get Output File ------------------------ #
-@app.route('/get-output', methods=['GET'])
-def get_output():
-    try:
-        with open('predicted_output.txt', 'r') as f:
-            output = f.read()
-        return jsonify({'output': output}), 200
-    except FileNotFoundError:
-        return jsonify({'message': 'No output available'}), 404
 
-# ------------------------ Run Flask App ------------------------ #
+@app.route('/')
+def home():
+    return "🔥 Flask backend running..."
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5176)
+    app.run()
