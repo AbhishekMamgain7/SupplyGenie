@@ -1,0 +1,211 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.warehouse-container {
+  background: url('/cartons.jpg') no-repeat center center;
+  background-size: cover;
+  background-blend-mode: lighten;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  padding: 4rem 1rem;
+  flex:1;
+  overflow-y: auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.warehouse-container::-webkit-scrollbar {
+  display: none;
+}
+
+.warehouse-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
+  height: 100vh;
+  overflow-y:auto;
+  width: 90%;
+  gap: 0.5rem;
+  margin: 2rem auto; 
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.warehouse-overlay::-webkit-scrollbar {
+  display: none;
+}
+.warehouse-overlay > article {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.8rem;
+}
+
+.wName {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.warehouse-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.warehouse-container input {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5000px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.warehouse-container input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.warehouse-container input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.numSection {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5000px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  appearance: none;
+}
+
+.numSection option {
+  color: black;
+  background-color: rgba(0, 0, 0, 0.145);
+}
+
+.select-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  width: 50%;
+  flex-wrap: wrap;
+}
+.Box-size{
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.Box-size input{
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  border: 0;
+  width: 30%;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5000px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+.enter {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5000px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  width: 50%;
+  align-self: center;
+}
+
+.enter:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.register {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.register a {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .warehouse-overlay {
+    flex-direction: column;
+    max-width: 95vw;
+    padding: 1rem;
+  }
+
+  .warehouse-overlay > article {
+    width: 100%;
+  }
+
+  .wName {
+    font-size: 1.5rem;
+  }
+
+  .enter {
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,44 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.38);
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Cambria", Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.header-title {
+  font-family: "Courier New", Courier, monospace;
+  padding-left: 15px;
+}
+
+.header-nav {
+  display: flex;
+}
+
+.header-menu {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.header-menu-item:last-child {
+  margin-right: 15px;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}

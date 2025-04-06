@@ -1,0 +1,6 @@
+product_category,warehouse_location,stock_availability,reorder_level,seasonality_factor,day_of_week,discount(%),economic_conditions,month,hour
+Clothing,Delhi,30,130,Off-Peak,3,20.727958330600966,Stable,10,16
+Electronics,Delhi,50,48,Peak,2,34.20423183170761,Inflation,1,11
+Pharmaceuticals,Kolkata,100,155,Off-Peak,5,5.003717334934693,Stable,5,7
+Furniture,Hyderabad,5,132,Peak,2,42.13664518703054,Inflation,7,19
+Clothing,Mumbai,35,76,Normal,4,28.953747719200834,Stable,10,7
