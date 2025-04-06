@@ -92,6 +92,11 @@ const Warehouse = () => {
         <nav className="header-nav">
           <ul className="header-menu">
             <li className="header-menu-item">
+              <Link to="/" className="header-link">
+                Home
+              </Link>
+            </li>
+            <li className="header-menu-item">
               <Link to="/Policies" className="header-link">
                 Policies
               </Link>

@@ -21,27 +21,20 @@ html {
   justify-content: center;
   align-items: center;
   overflow-y: auto;
-  -ms-overflow-style: none; 
-  scrollbar-width: none;
 }
-
 .dashboard-overlay {
-  width: 95%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 2rem;
+  padding: 1.5rem;
   color: white;
   overflow-y: auto;
   position: relative;
 }
-.dashboard-container::-webkit-scrollbar {
-  display: none;
-}
 .logout {
   position: absolute;
-  top: 20px;
+  top: 15px;
   right: 20px;
   background: rgba(255, 255, 255, 0.2);
   color: white;
@@ -59,7 +52,7 @@ html {
 
 .dashboard-layout {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   margin-top: 3rem;
   height: 100%;
 }
@@ -72,8 +65,7 @@ html {
   font-size: 1rem;
   line-height: 1.8;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  overflow-y: auto;
-  max-height: 100%;
+  height: 100%;
 }
 
 .dashboard-left h3 {
@@ -177,4 +169,37 @@ html {
     margin-bottom: 1rem;
     align-self: flex-end;
   }
+}
+/* Scrollbar Styling for Webkit Browsers (Chrome, Edge, Safari) */
+.dashboard-overlay::-webkit-scrollbar,
+.dashboard-right::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dashboard-overlay::-webkit-scrollbar-track,
+.dashboard-right::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+}
+
+.dashboard-overlay::-webkit-scrollbar-thumb,
+.dashboard-right::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+}
+
+.dashboard-overlay::-webkit-scrollbar-thumb:hover,
+.dashboard-right::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Firefox scrollbar styling */
+.dashboard-overlay,
+.dashboard-right {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
 }
