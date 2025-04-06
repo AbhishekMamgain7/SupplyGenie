@@ -188,7 +188,7 @@ const Dashboard = () => {
               <div>
                 <h3>{warehouses.warehouseName}</h3>
                 <p>📍 Location: {warehouses.location}</p>
-                <p>📦 Size: {warehouses.size}</p>
+                <p>📦 Size: {warehouses.size} sq.ft.</p>
                 <p>👷 Employees: {warehouses.employee}</p>
                 <p>🔢 Sections: {warehouses.sections.length}</p>
                 <p>🚪 Entry Points: {warehouses.entry}</p>
@@ -208,7 +208,7 @@ const Dashboard = () => {
                 (section.largeBoxes || 0);
 
               const currentTotal = sectionInputs[section.name]?.total || 0;
-
+              const sectionPer = (currentTotal / totalCapacity) * 100;
               return (
                 <div key={section.name} className="section-card">
                   <h4>{section.name}</h4>
@@ -223,14 +223,6 @@ const Dashboard = () => {
 
                   <p>
                     Total Entered: <strong>{currentTotal}</strong>
-                  </p>
-
-                  <p>
-                    Section Fill:{" "}
-                    {totalCapacity > 0
-                      ? Math.round((currentTotal / totalCapacity) * 100)
-                      : 0}
-                    %
                   </p>
 
                   {["Small", "Medium", "Large"].map((size) => {

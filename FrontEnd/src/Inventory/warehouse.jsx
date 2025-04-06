@@ -122,7 +122,7 @@ const Warehouse = () => {
               name="size"
               whileFocus={{ scale: 1.05 }}
               type="number"
-              placeholder="Size"
+              placeholder="Size (in sq.ft.)"
               value={formData.size}
               onChange={handleChange}
               required
@@ -226,7 +226,7 @@ const Warehouse = () => {
               name="entry"
               whileFocus={{ scale: 1.05 }}
               type="number"
-              placeholder="Number of Entry"
+              placeholder="Number of Entry Points"
               value={formData.entry}
               onChange={handleChange}
               required
@@ -235,7 +235,7 @@ const Warehouse = () => {
               name="exit"
               whileFocus={{ scale: 1.05 }}
               type="number"
-              placeholder="Number of Exit"
+              placeholder="Number of Exit Points"
               value={formData.exit}
               onChange={handleChange}
               required
