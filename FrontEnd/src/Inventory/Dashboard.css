@@ -13,7 +13,22 @@ html {
   background-size: cover;
   overflow: hidden;
 }
-
+.place-order {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5000px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  width: 50%;
+  align-self: center;
+}
+.place-order:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
 .dashboard-container {
   width: 100vw;
   height: 100vh;
