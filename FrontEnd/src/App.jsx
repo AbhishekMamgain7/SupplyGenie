@@ -15,11 +15,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Set Homepage as Default Route */}
+        {/**/}
         <Route
           path="/"
-          element=
-          {
+          element={
             <>
               <Homepage />
               <Chatbot />
