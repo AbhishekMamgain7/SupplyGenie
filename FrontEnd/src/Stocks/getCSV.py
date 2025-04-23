@@ -3,18 +3,15 @@ import firebase_admin
 from firebase_admin import credentials, auth, storage
 import os
 from flask_cors import CORS
-from predict_model import predict  # Your ML logic
+from predict_model import predict
 
 app = Flask(__name__)
 CORS(app)
 
-# Firebase Init
-cred = credentials.Certificate('firebase-key.json')
+cred = credentials.Certificate('src/Stocks/firebase-key.json')
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'supplygenie-11374.appspot.com'
+    'storageBucket': 'supplygenie-11374.firebasestorage.app'
 })
-
-# Store the latest prediction output temporarily in memory
 latest_prediction_output = {}
 
 @app.route('/api/verify-token', methods=['POST'])
@@ -44,32 +41,31 @@ def run_model():
     try:
         decoded_token = auth.verify_id_token(token)
         uid = decoded_token['uid']
-    except Exception:
-        return jsonify({'message': 'Invalid token'}), 401
+    except Exception as e:
+        return jsonify({'message': 'Invalid token', 'error': str(e)}), 401
 
     try:
-        # Get latest CSV file for user from Firebase Storage
         bucket = storage.bucket()
         user_folder = f'orders/{uid}/'
-        blobs = list(bucket.list_blobs(prefix=user_folder))
-        if not blobs:
+        
+        user_blobs = list(bucket.list_blobs(prefix=user_folder))
+        
+        if not user_blobs:
             return jsonify({'message': 'No files found for user'}), 404
 
-        # Find the most recently updated file
-        latest_blob = max(blobs, key=lambda b: b.updated)
+        latest_blob = max(user_blobs, key=lambda b: b.updated)
         local_filename = "downloaded.csv"
         latest_blob.download_to_filename(local_filename)
 
-        # Run prediction
         result = predict(local_filename)
-
         if result["status"] == "success":
-            latest_prediction_output[uid] = result["output"]  # Store output per user
+            latest_prediction_output[uid] = result["output"]
             return jsonify({"message": "Model executed successfully"}), 200
         else:
             return jsonify({"message": "Prediction failed"}), 500
 
     except Exception as e:
+        print(f"Error occurred: {str(e)}") 
         return jsonify({'message': f'Prediction error: {str(e)}'}), 500
 
 
@@ -83,8 +79,8 @@ def get_output():
     try:
         decoded_token = auth.verify_id_token(token)
         uid = decoded_token['uid']
-    except Exception:
-        return jsonify({'message': 'Invalid token'}), 401
+    except Exception as e:
+        return jsonify({'message': 'Invalid token', 'error': str(e)}), 401
 
     try:
         output = latest_prediction_output.get(uid)
@@ -93,6 +89,7 @@ def get_output():
         else:
             return jsonify({"message": "No prediction output found"}), 404
     except Exception as e:
+        print(f"Error occurred: {str(e)}") 
         return jsonify({'message': str(e)}), 500
 
 
@@ -102,4 +99,4 @@ def home():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, port=5000)
